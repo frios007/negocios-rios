@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: negociosrios_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Password123
+      POSTGRES_DB: negociosrios-dev
+      POSTGRES_USER: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
