@@ -117,7 +117,10 @@ export function SidebarNavUser() {
       </SidebarMenu>
 
       <ProfileSheet open={profileOpen} onOpenChange={setProfileOpen} />
-      <ChangePasswordDialog open={passwordOpen} onOpenChange={setPasswordOpen} />
+      <ChangePasswordDialog
+        open={passwordOpen}
+        onOpenChange={setPasswordOpen}
+      />
     </>
   );
 }
