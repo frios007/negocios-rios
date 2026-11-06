@@ -8,7 +8,7 @@ function daysAgo(n: number) {
 }
 
 export async function seedSales(coreData: any, inventoryData: any) {
-  const { farmacia, veterinaria } = coreData.businessUnits;
+  const { farmacia, sucursalNorte } = coreData.businessUnits;
   const { owner } = coreData.users;
   const {
     paracetamol,
@@ -17,11 +17,11 @@ export async function seedSales(coreData: any, inventoryData: any) {
     ibuprofeno,
     loratadina,
     protectorSolar,
-    vacunaMultiple,
-    consultaServicio,
-    desparasitacion,
-    vacunaAntirabica,
-    dogChow,
+    omeprazol,
+    inyectable,
+    tomaPresion,
+    losartan,
+    formulaInfantil,
   } = inventoryData.products;
 
   console.log('🛒 Creando Clientes...');
@@ -34,10 +34,10 @@ export async function seedSales(coreData: any, inventoryData: any) {
       { firstName: 'José', lastName: 'Martínez', phoneNumber: '8855-3344', businessUnitId: farmacia.id },
       { firstName: 'Rosa', lastName: 'Hernández', phoneNumber: '8866-5566', businessUnitId: farmacia.id, creditLimit: '500.00' },
       { firstName: 'Pedro', lastName: 'García', phoneNumber: '8877-7788', businessUnitId: farmacia.id },
-      // ─── Veterinaria ───────────────────
-      { firstName: 'Doña María', lastName: 'Gómez', phoneNumber: '8888-9999', businessUnitId: veterinaria.id },
-      { firstName: 'Carlos', lastName: 'Pérez', phoneNumber: '8899-1100', businessUnitId: veterinaria.id },
-      { firstName: 'Ana', lastName: 'Rivera', phoneNumber: '8811-2233', businessUnitId: veterinaria.id },
+      // ─── Sucursal Norte ────────────────
+      { firstName: 'Doña María', lastName: 'Gómez', phoneNumber: '8888-9999', businessUnitId: sucursalNorte.id },
+      { firstName: 'Carlos', lastName: 'Pérez', phoneNumber: '8899-1100', businessUnitId: sucursalNorte.id },
+      { firstName: 'Ana', lastName: 'Rivera', phoneNumber: '8811-2233', businessUnitId: sucursalNorte.id },
     ])
     .returning({ id: client.id });
 
@@ -47,9 +47,9 @@ export async function seedSales(coreData: any, inventoryData: any) {
     joseMartinez,
     rosaHernandez,
     pedroGarcia,
-    donaMariaVet,
-    carlosPVet,
-    anaRiveraVet,
+    donaMariaNorte,
+    carlosPNorte,
+    anaRiveraNorte,
   ] = allClients;
 
   console.log('💰 Registrando Ventas (últimos 30 días)...');
@@ -154,71 +154,71 @@ export async function seedSales(coreData: any, inventoryData: any) {
     amount: '91.00', paymentMethod: 'CASH', businessUnitId: farmacia.id,
   }]);
 
-  // ─── Sale 6: Vet — Doña María, consulta + vacuna, 3 days ago
+  // ─── Sale 6: Norte — Doña María, omeprazol + inyectable, 3 days ago
   const [v6] = await db.insert(sales).values([{
-    clientId: donaMariaVet.id,
+    clientId: donaMariaNorte.id,
     userId: owner.id,
-    subTotal: '750.00',
+    subTotal: '134.00',
     discountAmount: '0.00',
-    totalAmount: '750.00',
+    totalAmount: '134.00',
     paymentMethod: 'CASH',
     paymentStatus: 'PAID',
-    businessUnitId: veterinaria.id,
+    businessUnitId: sucursalNorte.id,
     createdAt: daysAgo(3),
   }]).returning({ id: sales.id });
   await db.insert(salesDetails).values([
-    { saleId: v6.id, productId: consultaServicio.id, quantity: 1, unitPrice: '300.00', lineDiscount: '0.00', businessUnitId: veterinaria.id },
-    { saleId: v6.id, productId: vacunaMultiple.id, quantity: 1, unitPrice: '450.00', lineDiscount: '0.00', businessUnitId: veterinaria.id },
+    { saleId: v6.id, productId: inyectable.id, quantity: 1, unitPrice: '50.00', lineDiscount: '0.00', businessUnitId: sucursalNorte.id },
+    { saleId: v6.id, productId: omeprazol.id, quantity: 1, unitPrice: '84.00', lineDiscount: '0.00', businessUnitId: sucursalNorte.id },
   ]);
   await db.insert(payments).values([{
-    saleId: v6.id, clientId: donaMariaVet.id, userId: owner.id,
-    amount: '750.00', paymentMethod: 'CASH', businessUnitId: veterinaria.id,
+    saleId: v6.id, clientId: donaMariaNorte.id, userId: owner.id,
+    amount: '134.00', paymentMethod: 'CASH', businessUnitId: sucursalNorte.id,
   }]);
 
-  // ─── Sale 7: Vet — Carlos, desparasitación, card, 7 days ago
+  // ─── Sale 7: Norte — Carlos, presión + losartán, card, 7 days ago
   const [v7] = await db.insert(sales).values([{
-    clientId: carlosPVet.id,
+    clientId: carlosPNorte.id,
     userId: owner.id,
-    subTotal: '340.00',
+    subTotal: '163.50',
     discountAmount: '0.00',
-    totalAmount: '340.00',
+    totalAmount: '163.50',
     paymentMethod: 'CARD',
     paymentStatus: 'PAID',
-    businessUnitId: veterinaria.id,
+    businessUnitId: sucursalNorte.id,
     createdAt: daysAgo(7),
   }]).returning({ id: sales.id });
   await db.insert(salesDetails).values([
-    { saleId: v7.id, productId: desparasitacion.id, quantity: 1, unitPrice: '100.00', lineDiscount: '0.00', businessUnitId: veterinaria.id },
-    { saleId: v7.id, productId: vacunaAntirabica.id, quantity: 1, unitPrice: '240.00', lineDiscount: '0.00', businessUnitId: veterinaria.id },
+    { saleId: v7.id, productId: tomaPresion.id, quantity: 1, unitPrice: '15.00', lineDiscount: '0.00', businessUnitId: sucursalNorte.id },
+    { saleId: v7.id, productId: losartan.id, quantity: 1, unitPrice: '148.50', lineDiscount: '0.00', businessUnitId: sucursalNorte.id },
   ]);
   await db.insert(payments).values([{
-    saleId: v7.id, clientId: carlosPVet.id, userId: owner.id,
-    amount: '340.00', paymentMethod: 'CARD', businessUnitId: veterinaria.id,
+    saleId: v7.id, clientId: carlosPNorte.id, userId: owner.id,
+    amount: '163.50', paymentMethod: 'CARD', businessUnitId: sucursalNorte.id,
   }]);
 
-  // ─── Sale 8: Vet — Ana, comida + consulta, today ───────────
+  // ─── Sale 8: Norte — Ana, fórmula + presión, today ───────────
   const [v8] = await db.insert(sales).values([{
-    clientId: anaRiveraVet.id,
+    clientId: anaRiveraNorte.id,
     userId: owner.id,
-    subTotal: '1080.00',
-    discountAmount: '50.00',
-    totalAmount: '1030.00',
+    subTotal: '639.00',
+    discountAmount: '24.00',
+    totalAmount: '615.00',
     paymentMethod: 'TRANSFER',
     paymentStatus: 'PAID',
-    businessUnitId: veterinaria.id,
+    businessUnitId: sucursalNorte.id,
     createdAt: daysAgo(0),
   }]).returning({ id: sales.id });
   await db.insert(salesDetails).values([
-    { saleId: v8.id, productId: dogChow.id, quantity: 1, unitPrice: '780.00', lineDiscount: '50.00', businessUnitId: veterinaria.id },
-    { saleId: v8.id, productId: consultaServicio.id, quantity: 1, unitPrice: '300.00', lineDiscount: '0.00', businessUnitId: veterinaria.id },
+    { saleId: v8.id, productId: formulaInfantil.id, quantity: 1, unitPrice: '624.00', lineDiscount: '24.00', businessUnitId: sucursalNorte.id },
+    { saleId: v8.id, productId: tomaPresion.id, quantity: 1, unitPrice: '15.00', lineDiscount: '0.00', businessUnitId: sucursalNorte.id },
   ]);
   await db.insert(payments).values([{
-    saleId: v8.id, clientId: anaRiveraVet.id, userId: owner.id,
-    amount: '1030.00', paymentMethod: 'TRANSFER', businessUnitId: veterinaria.id,
+    saleId: v8.id, clientId: anaRiveraNorte.id, userId: owner.id,
+    amount: '615.00', paymentMethod: 'TRANSFER', businessUnitId: sucursalNorte.id,
   }]);
 
   return {
-    clients: { clienteMostrador, mariaLopez, joseMartinez, rosaHernandez, pedroGarcia, donaMariaVet, carlosPVet, anaRiveraVet },
+    clients: { clienteMostrador, mariaLopez, joseMartinez, rosaHernandez, pedroGarcia, donaMariaNorte, carlosPNorte, anaRiveraNorte },
     sales: { v1, v2, v3, v4, v5, v6, v7, v8 },
   };
 }

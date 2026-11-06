@@ -293,7 +293,6 @@ export class AuthService {
           id: ub.businessUnit.id,
           name: ub.businessUnit.name,
           slug: ub.businessUnit.slug,
-          type: ub.businessUnit.type,
         },
       })),
     };

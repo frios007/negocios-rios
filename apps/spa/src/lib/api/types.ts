@@ -17,16 +17,13 @@ export interface ApiResponse<T> {
 
 // ─── Auth Types ────────────────────────────────────────────────
 
-export type BusinessUnitType = "VETERINARY" | "PHARMACY";
-
 export interface BusinessUnitAccess {
   businessUnitId: string;
-  role: "OWNER" | "ADMIN" | "VET" | "PHARMACIST" | "CASHIER";
+  role: "OWNER" | "ADMIN" | "PHARMACIST" | "CASHIER";
   businessUnit?: {
     id: string;
     name: string;
     slug: string;
-    type: BusinessUnitType;
   };
 }
 

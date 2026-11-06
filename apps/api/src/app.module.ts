@@ -14,9 +14,6 @@ import { StockMovementsModule } from "./modules/inventory/stock-movements/stock-
 import { ClientsModule } from "./modules/sale/clients/clients.module";
 import { SalesModule } from "./modules/sale/sales/sales.module";
 import { FinanceModule } from "./modules/finance/finance.module";
-import { PatientsModule } from "./modules/clinical/patients/patients.module";
-import { RecordsModule } from "./modules/clinical/records/records.module";
-import { HospitalizationsModule } from "./modules/clinical/hospitalizations/hospitalizations.module";
 import { HttpLoggerMiddleware } from "./core/middleware/http-logger.middleware";
 import { MiddlewareConsumer } from "@nestjs/common";
 
@@ -33,9 +30,6 @@ import { MiddlewareConsumer } from "@nestjs/common";
     ClientsModule,
     SalesModule,
     FinanceModule,
-    PatientsModule,
-    RecordsModule,
-    HospitalizationsModule,
   ],
   controllers: [],
   providers: [

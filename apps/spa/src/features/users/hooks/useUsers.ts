@@ -102,7 +102,7 @@ export function useAssignUserToBU() {
     mutationFn: ({ id, payload }: { id: string; payload: AssignUserPayload }) =>
       assignUserToBU(id, payload),
     onSuccess: () => {
-      toast.success("Usuario asignado al negocio");
+      toast.success("Usuario asignado a la sucursal");
       const tenantKey = getTenantKey();
       queryClient.invalidateQueries({ queryKey: [...tenantKey, "users"] });
     },
@@ -119,7 +119,7 @@ export function useUnassignUserFromBU() {
     mutationFn: ({ userId, buId }: { userId: string; buId: string }) =>
       unassignUserFromBU(userId, buId),
     onSuccess: () => {
-      toast.success("Usuario desasignado del negocio");
+      toast.success("Usuario desasignado de la sucursal");
       const tenantKey = getTenantKey();
       queryClient.invalidateQueries({ queryKey: [...tenantKey, "users"] });
     },

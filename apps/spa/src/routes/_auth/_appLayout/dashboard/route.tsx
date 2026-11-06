@@ -21,8 +21,6 @@ import {
   Package,
   Users,
   TrendingUp,
-  Stethoscope,
-  PawPrint,
   ShoppingCart,
   CreditCard,
   AlertTriangle,
@@ -50,7 +48,7 @@ function formatCurrency(value: number) {
 
 function DashboardPage() {
   const user = useAuthStore((s) => s.user);
-  const { isVet, activeBU, activeRole } = useBusinessContext();
+  const { activeBU, activeRole } = useBusinessContext();
   const isAdminOrOwner = activeRole === "ADMIN" || activeRole === "OWNER";
 
   const today = new Date().toISOString().split("T")[0];
@@ -103,7 +101,7 @@ function DashboardPage() {
           ¡Hola, {user?.firstName}!
         </h1>
         <p className="text-muted-foreground">
-          Resumen de {activeBU?.businessUnit?.name ?? "tu negocio"} para hoy.
+          Resumen de {activeBU?.businessUnit?.name ?? "tu sucursal"} para hoy.
         </p>
       </div>
 
@@ -153,28 +151,6 @@ function DashboardPage() {
           />
         )}
       </div>
-
-      {/* ─── Vet-specific Cards ────────────────── */}
-      {isVet && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <StatCard
-            title="Consultas Hoy"
-            value="—"
-            description="Sin consultas registradas"
-            icon={Stethoscope}
-            color="text-teal-600"
-            bgColor="bg-teal-500/10"
-          />
-          <StatCard
-            title="Pacientes Activos"
-            value="—"
-            description="Total registrados"
-            icon={PawPrint}
-            color="text-pink-600"
-            bgColor="bg-pink-500/10"
-          />
-        </div>
-      )}
 
       {/* ─── Admin/Owner Financial Overview ──────── */}
       {isAdminOrOwner && (

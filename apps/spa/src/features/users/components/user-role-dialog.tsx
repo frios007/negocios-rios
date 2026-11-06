@@ -28,7 +28,7 @@ interface Props {
   user: ManagedUser | null;
 }
 
-const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "VET", "PHARMACIST", "CASHIER"];
+const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "PHARMACIST", "CASHIER"];
 
 export function UserRoleDialog({ open, onOpenChange, user }: Props) {
   const mutation = useUpdateUserRole();
@@ -60,7 +60,7 @@ export function UserRoleDialog({ open, onOpenChange, user }: Props) {
             <span className="font-medium">
               {user.firstName} {user.lastName}
             </span>{" "}
-            en este negocio.
+            en esta sucursal.
           </DialogDescription>
         </DialogHeader>
 

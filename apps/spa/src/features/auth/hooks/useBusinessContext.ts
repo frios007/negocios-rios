@@ -1,8 +1,7 @@
 import { useAuthStore } from "@/features/auth/store/auth.store";
-import type { BusinessUnitType } from "@/lib/api/types";
 
 /**
- * Derived selectors for the active business unit context.
+ * Derived selectors for the active branch (business unit) context.
  * These compute from the auth store — no duplicated state.
  */
 export function useBusinessContext() {
@@ -13,21 +12,13 @@ export function useBusinessContext() {
     (bu) => bu.businessUnitId === activeBusinessUnitId,
   );
 
-  const activeBusinessType: BusinessUnitType | null =
-    activeBU?.businessUnit?.type ?? null;
-
   const activeRole = activeBU?.role ?? null;
 
-  const isVet = activeBusinessType === "VETERINARY";
-  const isPharmacy = activeBusinessType === "PHARMACY";
   const canSwitchBU = businessUnits.length > 1;
 
   return {
     activeBU,
-    activeBusinessType,
     activeRole,
-    isVet,
-    isPharmacy,
     canSwitchBU,
     businessUnits,
   };

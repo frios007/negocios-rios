@@ -1,6 +1,5 @@
 import { relations } from 'drizzle-orm';
 import { businessUnits, users, userBusinessUnits, refreshTokens } from './core.tables';
-import { patients, clinicalRecords } from '../clinical/clinical.tables';
 import {
   categories,
   suppliers,
@@ -11,8 +10,6 @@ import { client, sales, salesDetails } from '../sales/sales.tables';
 
 export const businessUnitsRelations = relations(businessUnits, ({ many }) => ({
   userBusinessUnits: many(userBusinessUnits),
-  patients: many(patients),
-  clinicalRecords: many(clinicalRecords),
   categories: many(categories),
   suppliers: many(suppliers),
   products: many(products),
@@ -24,7 +21,6 @@ export const businessUnitsRelations = relations(businessUnits, ({ many }) => ({
 
 export const usersRelations = relations(users, ({ many }) => ({
   userBusinessUnits: many(userBusinessUnits),
-  clinicalRecords: many(clinicalRecords),
   sales: many(sales),
   stockMovements: many(stockMovements),
   refreshTokens: many(refreshTokens),

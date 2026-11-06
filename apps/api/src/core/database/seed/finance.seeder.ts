@@ -26,7 +26,7 @@ const EXPENSE_ITEMS = [
 ];
 
 export async function seedFinance(coreData: any) {
-  const { farmacia, veterinaria } = coreData.businessUnits;
+  const { farmacia, sucursalNorte } = coreData.businessUnits;
   const { owner } = coreData.users;
 
   console.log('💸 Creando Categorías de Gastos...');
@@ -44,7 +44,7 @@ export async function seedFinance(coreData: any) {
 
   const createdCategories: { id: string; businessUnitId: string }[] = [];
 
-  for (const bu of [farmacia, veterinaria]) {
+  for (const bu of [farmacia, sucursalNorte]) {
     for (const name of defaultCategories) {
       const [cat] = await db
         .insert(expenseCategories)
@@ -63,7 +63,7 @@ export async function seedFinance(coreData: any) {
     '600.00', '110.00', '285.00', '750.00', '45.00',
   ];
 
-  for (const bu of [farmacia, veterinaria]) {
+  for (const bu of [farmacia, sucursalNorte]) {
     const buCategories = createdCategories.filter(
       (c) => c.businessUnitId === bu.id,
     );

@@ -39,3 +39,5 @@ yarn-error.log*
 
 #docer
 postgres_data
+# Código archivado fuera del repo (ej. módulo veterinaria retirado)
+_archive/

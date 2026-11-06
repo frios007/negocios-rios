@@ -222,7 +222,7 @@ export function ProfileSheet({ open, onOpenChange }: Props) {
               <Separator />
               <div className="space-y-3">
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  Todos los Negocios
+                  Todas las Sucursales
                 </h3>
                 <div className="space-y-2">
                   {buList.map((bu) => (

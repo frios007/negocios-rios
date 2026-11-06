@@ -20,12 +20,8 @@ import { Route as AuthAppLayoutInventoryRouteRouteImport } from './routes/_auth/
 import { Route as AuthAppLayoutFinancesRouteRouteImport } from './routes/_auth/_appLayout/finances/route'
 import { Route as AuthAppLayoutDashboardRouteRouteImport } from './routes/_auth/_appLayout/dashboard/route'
 import { Route as AuthAppLayoutCustomersRouteRouteImport } from './routes/_auth/_appLayout/customers/route'
-import { Route as AuthAppLayoutClinicalRouteRouteImport } from './routes/_auth/_appLayout/clinical/route'
 import { Route as AuthAppLayoutCategoriesRouteRouteImport } from './routes/_auth/_appLayout/categories/route'
 import { Route as AuthAppLayoutAdminRouteRouteImport } from './routes/_auth/_appLayout/admin/route'
-import { Route as AuthAppLayoutClinicalRecordsRouteImport } from './routes/_auth/_appLayout/clinical/records'
-import { Route as AuthAppLayoutClinicalPatientsRouteImport } from './routes/_auth/_appLayout/clinical/patients'
-import { Route as AuthAppLayoutClinicalHospitalizationsRouteImport } from './routes/_auth/_appLayout/clinical/hospitalizations'
 import { Route as AuthAppLayoutAdminUsersRouteImport } from './routes/_auth/_appLayout/admin/users'
 
 const LoginRouteRoute = LoginRouteRouteImport.update({
@@ -87,12 +83,6 @@ const AuthAppLayoutCustomersRouteRoute =
     path: '/customers',
     getParentRoute: () => AuthAppLayoutRouteRoute,
   } as any)
-const AuthAppLayoutClinicalRouteRoute =
-  AuthAppLayoutClinicalRouteRouteImport.update({
-    id: '/clinical',
-    path: '/clinical',
-    getParentRoute: () => AuthAppLayoutRouteRoute,
-  } as any)
 const AuthAppLayoutCategoriesRouteRoute =
   AuthAppLayoutCategoriesRouteRouteImport.update({
     id: '/categories',
@@ -104,24 +94,6 @@ const AuthAppLayoutAdminRouteRoute = AuthAppLayoutAdminRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthAppLayoutRouteRoute,
 } as any)
-const AuthAppLayoutClinicalRecordsRoute =
-  AuthAppLayoutClinicalRecordsRouteImport.update({
-    id: '/records',
-    path: '/records',
-    getParentRoute: () => AuthAppLayoutClinicalRouteRoute,
-  } as any)
-const AuthAppLayoutClinicalPatientsRoute =
-  AuthAppLayoutClinicalPatientsRouteImport.update({
-    id: '/patients',
-    path: '/patients',
-    getParentRoute: () => AuthAppLayoutClinicalRouteRoute,
-  } as any)
-const AuthAppLayoutClinicalHospitalizationsRoute =
-  AuthAppLayoutClinicalHospitalizationsRouteImport.update({
-    id: '/hospitalizations',
-    path: '/hospitalizations',
-    getParentRoute: () => AuthAppLayoutClinicalRouteRoute,
-  } as any)
 const AuthAppLayoutAdminUsersRoute = AuthAppLayoutAdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
@@ -133,7 +105,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRouteRoute
   '/admin': typeof AuthAppLayoutAdminRouteRouteWithChildren
   '/categories': typeof AuthAppLayoutCategoriesRouteRoute
-  '/clinical': typeof AuthAppLayoutClinicalRouteRouteWithChildren
   '/customers': typeof AuthAppLayoutCustomersRouteRoute
   '/dashboard': typeof AuthAppLayoutDashboardRouteRoute
   '/finances': typeof AuthAppLayoutFinancesRouteRoute
@@ -142,16 +113,12 @@ export interface FileRoutesByFullPath {
   '/sales': typeof AuthAppLayoutSalesRouteRoute
   '/suppliers': typeof AuthAppLayoutSuppliersRouteRoute
   '/admin/users': typeof AuthAppLayoutAdminUsersRoute
-  '/clinical/hospitalizations': typeof AuthAppLayoutClinicalHospitalizationsRoute
-  '/clinical/patients': typeof AuthAppLayoutClinicalPatientsRoute
-  '/clinical/records': typeof AuthAppLayoutClinicalRecordsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRouteRoute
   '/admin': typeof AuthAppLayoutAdminRouteRouteWithChildren
   '/categories': typeof AuthAppLayoutCategoriesRouteRoute
-  '/clinical': typeof AuthAppLayoutClinicalRouteRouteWithChildren
   '/customers': typeof AuthAppLayoutCustomersRouteRoute
   '/dashboard': typeof AuthAppLayoutDashboardRouteRoute
   '/finances': typeof AuthAppLayoutFinancesRouteRoute
@@ -160,9 +127,6 @@ export interface FileRoutesByTo {
   '/sales': typeof AuthAppLayoutSalesRouteRoute
   '/suppliers': typeof AuthAppLayoutSuppliersRouteRoute
   '/admin/users': typeof AuthAppLayoutAdminUsersRoute
-  '/clinical/hospitalizations': typeof AuthAppLayoutClinicalHospitalizationsRoute
-  '/clinical/patients': typeof AuthAppLayoutClinicalPatientsRoute
-  '/clinical/records': typeof AuthAppLayoutClinicalRecordsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -172,7 +136,6 @@ export interface FileRoutesById {
   '/_auth/_appLayout': typeof AuthAppLayoutRouteRouteWithChildren
   '/_auth/_appLayout/admin': typeof AuthAppLayoutAdminRouteRouteWithChildren
   '/_auth/_appLayout/categories': typeof AuthAppLayoutCategoriesRouteRoute
-  '/_auth/_appLayout/clinical': typeof AuthAppLayoutClinicalRouteRouteWithChildren
   '/_auth/_appLayout/customers': typeof AuthAppLayoutCustomersRouteRoute
   '/_auth/_appLayout/dashboard': typeof AuthAppLayoutDashboardRouteRoute
   '/_auth/_appLayout/finances': typeof AuthAppLayoutFinancesRouteRoute
@@ -181,9 +144,6 @@ export interface FileRoutesById {
   '/_auth/_appLayout/sales': typeof AuthAppLayoutSalesRouteRoute
   '/_auth/_appLayout/suppliers': typeof AuthAppLayoutSuppliersRouteRoute
   '/_auth/_appLayout/admin/users': typeof AuthAppLayoutAdminUsersRoute
-  '/_auth/_appLayout/clinical/hospitalizations': typeof AuthAppLayoutClinicalHospitalizationsRoute
-  '/_auth/_appLayout/clinical/patients': typeof AuthAppLayoutClinicalPatientsRoute
-  '/_auth/_appLayout/clinical/records': typeof AuthAppLayoutClinicalRecordsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -192,7 +152,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin'
     | '/categories'
-    | '/clinical'
     | '/customers'
     | '/dashboard'
     | '/finances'
@@ -201,16 +160,12 @@ export interface FileRouteTypes {
     | '/sales'
     | '/suppliers'
     | '/admin/users'
-    | '/clinical/hospitalizations'
-    | '/clinical/patients'
-    | '/clinical/records'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/admin'
     | '/categories'
-    | '/clinical'
     | '/customers'
     | '/dashboard'
     | '/finances'
@@ -219,9 +174,6 @@ export interface FileRouteTypes {
     | '/sales'
     | '/suppliers'
     | '/admin/users'
-    | '/clinical/hospitalizations'
-    | '/clinical/patients'
-    | '/clinical/records'
   id:
     | '__root__'
     | '/'
@@ -230,7 +182,6 @@ export interface FileRouteTypes {
     | '/_auth/_appLayout'
     | '/_auth/_appLayout/admin'
     | '/_auth/_appLayout/categories'
-    | '/_auth/_appLayout/clinical'
     | '/_auth/_appLayout/customers'
     | '/_auth/_appLayout/dashboard'
     | '/_auth/_appLayout/finances'
@@ -239,9 +190,6 @@ export interface FileRouteTypes {
     | '/_auth/_appLayout/sales'
     | '/_auth/_appLayout/suppliers'
     | '/_auth/_appLayout/admin/users'
-    | '/_auth/_appLayout/clinical/hospitalizations'
-    | '/_auth/_appLayout/clinical/patients'
-    | '/_auth/_appLayout/clinical/records'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -329,13 +277,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAppLayoutCustomersRouteRouteImport
       parentRoute: typeof AuthAppLayoutRouteRoute
     }
-    '/_auth/_appLayout/clinical': {
-      id: '/_auth/_appLayout/clinical'
-      path: '/clinical'
-      fullPath: '/clinical'
-      preLoaderRoute: typeof AuthAppLayoutClinicalRouteRouteImport
-      parentRoute: typeof AuthAppLayoutRouteRoute
-    }
     '/_auth/_appLayout/categories': {
       id: '/_auth/_appLayout/categories'
       path: '/categories'
@@ -349,27 +290,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AuthAppLayoutAdminRouteRouteImport
       parentRoute: typeof AuthAppLayoutRouteRoute
-    }
-    '/_auth/_appLayout/clinical/records': {
-      id: '/_auth/_appLayout/clinical/records'
-      path: '/records'
-      fullPath: '/clinical/records'
-      preLoaderRoute: typeof AuthAppLayoutClinicalRecordsRouteImport
-      parentRoute: typeof AuthAppLayoutClinicalRouteRoute
-    }
-    '/_auth/_appLayout/clinical/patients': {
-      id: '/_auth/_appLayout/clinical/patients'
-      path: '/patients'
-      fullPath: '/clinical/patients'
-      preLoaderRoute: typeof AuthAppLayoutClinicalPatientsRouteImport
-      parentRoute: typeof AuthAppLayoutClinicalRouteRoute
-    }
-    '/_auth/_appLayout/clinical/hospitalizations': {
-      id: '/_auth/_appLayout/clinical/hospitalizations'
-      path: '/hospitalizations'
-      fullPath: '/clinical/hospitalizations'
-      preLoaderRoute: typeof AuthAppLayoutClinicalHospitalizationsRouteImport
-      parentRoute: typeof AuthAppLayoutClinicalRouteRoute
     }
     '/_auth/_appLayout/admin/users': {
       id: '/_auth/_appLayout/admin/users'
@@ -395,29 +315,9 @@ const AuthAppLayoutAdminRouteRouteWithChildren =
     AuthAppLayoutAdminRouteRouteChildren,
   )
 
-interface AuthAppLayoutClinicalRouteRouteChildren {
-  AuthAppLayoutClinicalHospitalizationsRoute: typeof AuthAppLayoutClinicalHospitalizationsRoute
-  AuthAppLayoutClinicalPatientsRoute: typeof AuthAppLayoutClinicalPatientsRoute
-  AuthAppLayoutClinicalRecordsRoute: typeof AuthAppLayoutClinicalRecordsRoute
-}
-
-const AuthAppLayoutClinicalRouteRouteChildren: AuthAppLayoutClinicalRouteRouteChildren =
-  {
-    AuthAppLayoutClinicalHospitalizationsRoute:
-      AuthAppLayoutClinicalHospitalizationsRoute,
-    AuthAppLayoutClinicalPatientsRoute: AuthAppLayoutClinicalPatientsRoute,
-    AuthAppLayoutClinicalRecordsRoute: AuthAppLayoutClinicalRecordsRoute,
-  }
-
-const AuthAppLayoutClinicalRouteRouteWithChildren =
-  AuthAppLayoutClinicalRouteRoute._addFileChildren(
-    AuthAppLayoutClinicalRouteRouteChildren,
-  )
-
 interface AuthAppLayoutRouteRouteChildren {
   AuthAppLayoutAdminRouteRoute: typeof AuthAppLayoutAdminRouteRouteWithChildren
   AuthAppLayoutCategoriesRouteRoute: typeof AuthAppLayoutCategoriesRouteRoute
-  AuthAppLayoutClinicalRouteRoute: typeof AuthAppLayoutClinicalRouteRouteWithChildren
   AuthAppLayoutCustomersRouteRoute: typeof AuthAppLayoutCustomersRouteRoute
   AuthAppLayoutDashboardRouteRoute: typeof AuthAppLayoutDashboardRouteRoute
   AuthAppLayoutFinancesRouteRoute: typeof AuthAppLayoutFinancesRouteRoute
@@ -430,7 +330,6 @@ interface AuthAppLayoutRouteRouteChildren {
 const AuthAppLayoutRouteRouteChildren: AuthAppLayoutRouteRouteChildren = {
   AuthAppLayoutAdminRouteRoute: AuthAppLayoutAdminRouteRouteWithChildren,
   AuthAppLayoutCategoriesRouteRoute: AuthAppLayoutCategoriesRouteRoute,
-  AuthAppLayoutClinicalRouteRoute: AuthAppLayoutClinicalRouteRouteWithChildren,
   AuthAppLayoutCustomersRouteRoute: AuthAppLayoutCustomersRouteRoute,
   AuthAppLayoutDashboardRouteRoute: AuthAppLayoutDashboardRouteRoute,
   AuthAppLayoutFinancesRouteRoute: AuthAppLayoutFinancesRouteRoute,

@@ -2,11 +2,11 @@ import { db } from './db';
 import { categories, products, stockMovements, suppliers } from '../schemas/inventory';
 
 export async function seedInventory(coreData: any) {
-  const { farmacia, veterinaria } = coreData.businessUnits;
+  const { farmacia, sucursalNorte } = coreData.businessUnits;
   const { owner } = coreData.users;
 
   console.log('📦 Creando Categorías...');
-  const [catMedFarma, catCuidadoFarma, catMedVet, catServVet, catAlimentoVet] = await db
+  const [catMedFarma, catCuidadoFarma, catMedNorte, catServNorte, catNutriNorte] = await db
     .insert(categories)
     .values([
       {
@@ -20,25 +20,25 @@ export async function seedInventory(coreData: any) {
         description: 'Productos de higiene y belleza',
       },
       {
-        name: 'Medicinas y Vacunas',
-        businessUnitId: veterinaria.id,
-        description: 'Medicamentos y vacunas veterinarias',
+        name: 'Medicamentos Éticos',
+        businessUnitId: sucursalNorte.id,
+        description: 'Medicamentos de venta con receta o de venta libre',
       },
       {
-        name: 'Servicios Clínicos',
-        businessUnitId: veterinaria.id,
-        description: 'Consultas, cirugías y procedimientos',
+        name: 'Servicios Farmacéuticos',
+        businessUnitId: sucursalNorte.id,
+        description: 'Inyectología, toma de presión y glucometría',
       },
       {
-        name: 'Alimentos y Accesorios',
-        businessUnitId: veterinaria.id,
-        description: 'Comida para mascotas y accesorios',
+        name: 'Nutrición y Suplementos',
+        businessUnitId: sucursalNorte.id,
+        description: 'Fórmulas infantiles, vitaminas y suplementos',
       },
     ])
     .returning({ id: categories.id });
 
   console.log('🚚 Creando Proveedores...');
-  const [drogueriaNac, distVeterinaria, labBayer] = await db
+  const [drogueriaNac, distNorte, labBayer] = await db
     .insert(suppliers)
     .values([
       {
@@ -47,9 +47,9 @@ export async function seedInventory(coreData: any) {
         businessUnitId: farmacia.id,
       },
       {
-        name: 'Distribuidora Veterinaria del Sur',
+        name: 'Distribuidora Farmacéutica del Norte',
         phoneNumber: '2222-2222',
-        businessUnitId: veterinaria.id,
+        businessUnitId: sucursalNorte.id,
       },
       {
         name: 'Laboratorios Bayer',
@@ -162,80 +162,80 @@ export async function seedInventory(coreData: any) {
         businessUnitId: farmacia.id,
         description: 'Protección solar de amplio espectro',
       },
-      // ─── Veterinaria ───────────────────────────
+      // ─── Sucursal Norte ────────────────────────
       {
-        barcode: '7423333333333',
-        name: 'Vacuna Múltiple (Séxtuple)',
-        costPrice: '300.00',
-        profitMargin: '50.00',
-        unitPrice: '450.00',
+        barcode: '7421116666666',
+        name: 'Omeprazol 20mg (Caja x14)',
+        costPrice: '60.00',
+        profitMargin: '40.00',
+        unitPrice: '84.00',
         stockQuantity: 15,
         isActive: true,
         isSample: false,
-        categoryId: catMedVet.id,
-        supplierId: distVeterinaria.id,
-        businessUnitId: veterinaria.id,
-        description: 'Previene 6 enfermedades caninas',
+        categoryId: catMedNorte.id,
+        supplierId: distNorte.id,
+        businessUnitId: sucursalNorte.id,
+        description: 'Inhibidor de la bomba de protones',
         isRegulated: true,
       },
       {
         barcode: null,
-        name: 'Consulta General Veterinaria',
+        name: 'Aplicación de Inyectable',
         productType: 'SERVICE',
-        costPrice: '200.00',
-        profitMargin: '50.00',
-        unitPrice: '300.00',
+        costPrice: '20.00',
+        profitMargin: '150.00',
+        unitPrice: '50.00',
         stockQuantity: 0,
         isActive: true,
         isSample: false,
-        categoryId: catServVet.id,
+        categoryId: catServNorte.id,
         supplierId: null,
-        businessUnitId: veterinaria.id,
-        description: 'Consulta de 30 minutos',
+        businessUnitId: sucursalNorte.id,
+        description: 'Aplicación intramuscular o subcutánea',
       },
       {
         barcode: null,
-        name: 'Desparasitación',
+        name: 'Toma de Presión Arterial',
         productType: 'SERVICE',
-        costPrice: '50.00',
-        profitMargin: '100.00',
-        unitPrice: '100.00',
+        costPrice: '5.00',
+        profitMargin: '200.00',
+        unitPrice: '15.00',
         stockQuantity: 0,
         isActive: true,
         isSample: false,
-        categoryId: catServVet.id,
+        categoryId: catServNorte.id,
         supplierId: null,
-        businessUnitId: veterinaria.id,
-        description: 'Desparasitación interna y externa',
+        businessUnitId: sucursalNorte.id,
+        description: 'Medición con tensiómetro digital',
       },
       {
-        barcode: '7423337777777',
-        name: 'Vacuna Antirábica',
-        costPrice: '150.00',
-        profitMargin: '60.00',
-        unitPrice: '240.00',
+        barcode: '7421117777777',
+        name: 'Losartán 50mg (Caja x30)',
+        costPrice: '110.00',
+        profitMargin: '35.00',
+        unitPrice: '148.50',
         stockQuantity: 20,
         isActive: true,
         isSample: false,
-        categoryId: catMedVet.id,
-        supplierId: distVeterinaria.id,
-        businessUnitId: veterinaria.id,
-        description: 'Vacuna obligatoria contra la rabia',
+        categoryId: catMedNorte.id,
+        supplierId: distNorte.id,
+        businessUnitId: sucursalNorte.id,
+        description: 'Antihipertensivo',
         isRegulated: true,
       },
       {
-        barcode: '7423338888888',
-        name: 'Dog Chow Adulto 18kg',
-        costPrice: '650.00',
+        barcode: '7424448888888',
+        name: 'Fórmula Infantil Etapa 1 (900g)',
+        costPrice: '520.00',
         profitMargin: '20.00',
-        unitPrice: '780.00',
+        unitPrice: '624.00',
         stockQuantity: 8,
         isActive: true,
         isSample: false,
-        categoryId: catAlimentoVet.id,
-        supplierId: distVeterinaria.id,
-        businessUnitId: veterinaria.id,
-        description: 'Alimento seco para perros adultos',
+        categoryId: catNutriNorte.id,
+        supplierId: distNorte.id,
+        businessUnitId: sucursalNorte.id,
+        description: 'Fórmula láctea para lactantes de 0 a 6 meses',
       },
     ])
     .returning({ id: products.id });
@@ -248,11 +248,11 @@ export async function seedInventory(coreData: any) {
     ibuprofeno,
     loratadina,
     protectorSolar,
-    vacunaMultiple,
-    consultaServicio,
-    desparasitacion,
-    vacunaAntirabica,
-    dogChow,
+    omeprazol,
+    inyectable,
+    tomaPresion,
+    losartan,
+    formulaInfantil,
   ] = baseProducts;
 
   console.log('🔄 Registrando Movimientos de Inventario (Kardex)...');
@@ -281,24 +281,24 @@ export async function seedInventory(coreData: any) {
       businessUnitId: farmacia.id,
     },
     {
-      productId: vacunaMultiple.id,
+      productId: omeprazol.id,
       userId: owner.id,
       type: 'PURCHASE_IN',
       quantity: 16,
-      batchNumber: 'VET-VAC-992',
+      batchNumber: 'LOTE-OMP-992',
       expirationDate: nextYear,
-      notes: 'Ingreso directo a cadena de frío',
-      businessUnitId: veterinaria.id,
+      notes: 'Compra inicial a Distribuidora del Norte',
+      businessUnitId: sucursalNorte.id,
     },
     {
-      productId: vacunaAntirabica.id,
+      productId: losartan.id,
       userId: owner.id,
       type: 'PURCHASE_IN',
       quantity: 20,
-      batchNumber: 'VET-RAB-550',
+      batchNumber: 'LOTE-LOS-550',
       expirationDate: nextYear,
-      notes: 'Compra semestral de antirrábica',
-      businessUnitId: veterinaria.id,
+      notes: 'Compra mensual de antihipertensivos',
+      businessUnitId: sucursalNorte.id,
     },
     {
       productId: vitaminaC.id,
@@ -317,19 +317,20 @@ export async function seedInventory(coreData: any) {
       businessUnitId: farmacia.id,
     },
     {
-      productId: dogChow.id,
+      productId: formulaInfantil.id,
       userId: owner.id,
       type: 'PURCHASE_IN',
       quantity: 8,
-      batchNumber: 'DC-AD-1824',
-      notes: 'Compra inicial alimento mascotas',
-      businessUnitId: veterinaria.id,
+      batchNumber: 'LOTE-FI1-1824',
+      expirationDate: nextYear,
+      notes: 'Compra inicial de fórmulas infantiles',
+      businessUnitId: sucursalNorte.id,
     },
   ]);
 
   return {
-    categories: { catMedFarma, catCuidadoFarma, catMedVet, catServVet, catAlimentoVet },
-    suppliers: { drogueriaNac, distVeterinaria, labBayer },
+    categories: { catMedFarma, catCuidadoFarma, catMedNorte, catServNorte, catNutriNorte },
+    suppliers: { drogueriaNac, distNorte, labBayer },
     products: {
       paracetamol,
       jabonAntibacterial,
@@ -338,11 +339,11 @@ export async function seedInventory(coreData: any) {
       ibuprofeno,
       loratadina,
       protectorSolar,
-      vacunaMultiple,
-      consultaServicio,
-      desparasitacion,
-      vacunaAntirabica,
-      dogChow,
+      omeprazol,
+      inyectable,
+      tomaPresion,
+      losartan,
+      formulaInfantil,
     },
   };
 }
