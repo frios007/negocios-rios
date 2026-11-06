@@ -1,7 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { client, sales, salesDetails, expenseCategories, expenses } from './sales.tables';
 import { businessUnits, users } from '../core/core.tables';
-import { patients } from '../clinical/clinical.tables';
 import { products } from '../inventory/inventory.tables';
 
 export const clientsRelations = relations(client, ({ one, many }) => ({
@@ -9,7 +8,6 @@ export const clientsRelations = relations(client, ({ one, many }) => ({
     fields: [client.businessUnitId],
     references: [businessUnits.id],
   }),
-  patients: many(patients),
   sales: many(sales),
 }));
 

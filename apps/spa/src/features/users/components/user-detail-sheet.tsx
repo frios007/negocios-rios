@@ -39,7 +39,7 @@ interface Props {
   user: ManagedUser | null;
 }
 
-const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "VET", "PHARMACIST", "CASHIER"];
+const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "PHARMACIST", "CASHIER"];
 
 export function UserDetailSheet({ open, onOpenChange, user }: Props) {
   const tenantKey = useTenantKey();
@@ -154,7 +154,7 @@ export function UserDetailSheet({ open, onOpenChange, user }: Props) {
           {/* ─── Business Unit Assignments ────────────── */}
           <div className="space-y-3">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              Negocios Asignados
+              Sucursales Asignadas
             </h3>
 
             {isLoading ? (
@@ -214,12 +214,12 @@ export function UserDetailSheet({ open, onOpenChange, user }: Props) {
               <Separator />
               <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                  Asignar a Negocio
+                  Asignar a Sucursal
                 </h3>
                 <div className="space-y-3">
                   <Select value={assignBU} onValueChange={setAssignBU}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar negocio..." />
+                      <SelectValue placeholder="Seleccionar sucursal..." />
                     </SelectTrigger>
                     <SelectContent>
                       {assignableBUs.map((bu) => (

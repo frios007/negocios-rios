@@ -5,23 +5,15 @@ export const coreSchema = pgSchema('core');
 export const roleEnum = coreSchema.enum('role_enum', [
   'OWNER',
   'ADMIN',
-  'VET',
   'PHARMACIST',
   'CASHIER',
 ]);
 export type UserRole = (typeof roleEnum.enumValues)[number];
 
-export const businessUnitTypeEnum = coreSchema.enum('business_unit_type', [
-  'VETERINARY',
-  'PHARMACY',
-]);
-export type BusinessUnitType = (typeof businessUnitTypeEnum.enumValues)[number];
-
 export const businessUnits = coreSchema.table('business_units', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: varchar('name', { length: 100 }).notNull(),
   slug: varchar('slug', { length: 100 }).notNull().unique(),
-  type: businessUnitTypeEnum('type').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

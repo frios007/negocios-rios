@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const AssignUserSchema = z.object({
   businessUnitId: z.uuid("Invalid Business Unit ID"),
-  role: z.enum(["OWNER", "ADMIN", "VET", "PHARMACIST", "CASHIER"]),
+  role: z.enum(["OWNER", "ADMIN", "PHARMACIST", "CASHIER"]),
 });
 
 export class AssignUserDto extends createZodDto(AssignUserSchema) {}

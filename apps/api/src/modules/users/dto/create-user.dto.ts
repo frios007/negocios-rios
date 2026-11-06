@@ -19,7 +19,7 @@ export const CreateUserSchema = z.object({
     .string()
     .min(6, 'Password must be at least 6 characters')
     .max(100),
-  role: z.enum(['OWNER', 'ADMIN', 'VET', 'PHARMACIST', 'CASHIER']),
+  role: z.enum(['OWNER', 'ADMIN', 'PHARMACIST', 'CASHIER']),
 });
 
 export class CreateUserDto extends createZodDto(CreateUserSchema) {}

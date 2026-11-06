@@ -14,17 +14,9 @@ import {
   expenses,
   expenseCategories,
 } from '../schemas/sales';
-import {
-  patients,
-  clinicalRecords,
-  hospitalizations,
-  hospitalizationNotes,
-  hospitalizationItems,
-} from '../schemas/clinical';
 import { seedCore } from './core.seeder';
 import { seedInventory } from './inventory.seeder';
 import { seedSales } from './sales.seeder';
-import { seedClinical } from './clinical.seeder';
 import { seedFinance } from './finance.seeder';
 import { count } from 'drizzle-orm';
 
@@ -48,11 +40,6 @@ async function runSeed() {
     // ─── Destructive cleanup (dev only, not staging first run) ─
     if (!isStaging) {
       console.log('🧹 Limpiando base de datos (eliminando datos anteriores)...');
-      await db.delete(hospitalizationItems);
-      await db.delete(hospitalizationNotes);
-      await db.delete(hospitalizations);
-      await db.delete(clinicalRecords);
-      await db.delete(patients);
       await db.delete(expenses);
       await db.delete(expenseCategories);
       await db.delete(salesDetails);
@@ -73,9 +60,7 @@ async function runSeed() {
     console.log('-------------------------------------------');
     const inventoryData = await seedInventory(coreData);
     console.log('-------------------------------------------');
-    const salesData = await seedSales(coreData, inventoryData);
-    console.log('-------------------------------------------');
-    await seedClinical(coreData, salesData);
+    await seedSales(coreData, inventoryData);
     console.log('-------------------------------------------');
     await seedFinance(coreData);
     console.log('-------------------------------------------');

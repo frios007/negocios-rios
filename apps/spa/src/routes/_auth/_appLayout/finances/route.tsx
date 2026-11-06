@@ -178,7 +178,7 @@ function FinancesPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todas las unidades</SelectItem>
+              <SelectItem value="all">Todas las sucursales</SelectItem>
               {businessUnits.map((bu) => (
                 <SelectItem key={bu.businessUnitId} value={bu.businessUnitId}>
                   {bu.businessUnit?.name ?? bu.businessUnitId}

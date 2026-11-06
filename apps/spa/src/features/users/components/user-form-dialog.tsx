@@ -29,7 +29,7 @@ interface Props {
   user: ManagedUser | null; // null = create mode
 }
 
-const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "VET", "PHARMACIST", "CASHIER"];
+const ALL_ROLES: UserRole[] = ["OWNER", "ADMIN", "PHARMACIST", "CASHIER"];
 
 export function UserFormDialog({ open, onOpenChange, user }: Props) {
   const createMutation = useCreateUser();
@@ -80,7 +80,7 @@ export function UserFormDialog({ open, onOpenChange, user }: Props) {
             <DialogDescription>
               {isEditing
                 ? "Modifica los datos del usuario."
-                : "Crea un nuevo usuario y asígnalo a este negocio."}
+                : "Crea un nuevo usuario y asígnalo a esta sucursal."}
             </DialogDescription>
           </DialogHeader>
 

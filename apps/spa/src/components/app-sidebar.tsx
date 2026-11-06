@@ -22,9 +22,6 @@ import {
   ClipboardList,
   DollarSign,
   Users,
-  PawPrint,
-  Stethoscope,
-  BedDouble,
   Tags,
   Truck,
   Landmark,
@@ -32,7 +29,7 @@ import {
 import type { ComponentProps } from "react";
 
 export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
-  const { isVet, activeRole } = useBusinessContext();
+  const { activeRole } = useBusinessContext();
   const location = useLocation({ select: (l) => l.pathname });
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -99,38 +96,6 @@ export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-        {/* ─── Clínica (Vet only) ──────────────── */}
-        {isVet && (
-          <>
-            <SidebarSeparator />
-            <SidebarGroup>
-              <SidebarGroupLabel>Clínica</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <NavItem
-                    to="/clinical/patients"
-                    label="Pacientes"
-                    icon={PawPrint}
-                    isActive={location === "/clinical/patients"}
-                  />
-                  <NavItem
-                    to="/clinical/records"
-                    label="Consultas"
-                    icon={Stethoscope}
-                    isActive={location === "/clinical/records"}
-                  />
-                  <NavItem
-                    to="/clinical/hospitalizations"
-                    label="Hospitalización"
-                    icon={BedDouble}
-                    isActive={location === "/clinical/hospitalizations"}
-                  />
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </>
-        )}
 
         {(activeRole === "ADMIN" || activeRole === "OWNER") && (
           <>

@@ -5,12 +5,12 @@ import * as bcrypt from 'bcrypt';
 export async function seedCore() {
   const password = process.env.SEED_OWNER_PASSWORD || 'contra123';
 
-  console.log('🏢 Creando Unidades de Negocio...');
-  const [farmacia, veterinaria] = await db
+  console.log('🏢 Creando Sucursales...');
+  const [farmacia, sucursalNorte] = await db
     .insert(businessUnits)
     .values([
-      { name: 'Farmacia Ríos', slug: 'farmacia-rios', type: 'PHARMACY' as const },
-      { name: 'Veterinaria Ríos', slug: 'veterinaria-rios', type: 'VETERINARY' as const },
+      { name: 'Farmacia Ríos - Central', slug: 'farmacia-rios-central' },
+      { name: 'Farmacia Ríos - Sucursal Norte', slug: 'farmacia-rios-norte' },
     ])
     .returning({ id: businessUnits.id });
 
@@ -30,14 +30,14 @@ export async function seedCore() {
     ])
     .returning({ id: users.id });
 
-  console.log('🔑 Asignando Rol OWNER en ambos negocios...');
+  console.log('🔑 Asignando Rol OWNER en ambas sucursales...');
   await db.insert(userBusinessUnits).values([
     { userId: owner.id, businessUnitId: farmacia.id, role: 'OWNER' },
-    { userId: owner.id, businessUnitId: veterinaria.id, role: 'OWNER' },
+    { userId: owner.id, businessUnitId: sucursalNorte.id, role: 'OWNER' },
   ]);
 
   return {
-    businessUnits: { farmacia, veterinaria },
+    businessUnits: { farmacia, sucursalNorte },
     users: { owner },
   };
 }
