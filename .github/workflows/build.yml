@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    branches: [main, desarollo]
+  pull_request:
+    branches: [main, desarollo]
+
+jobs:
+  build:
+    name: Build ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [api, spa]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile --filter ${{ matrix.app }}...
+
+      - name: Compilar
+        run: pnpm --filter ${{ matrix.app }} build
+        env:
+          VITE_API_URL: http://localhost:3005
