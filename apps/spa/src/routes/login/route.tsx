@@ -1,3 +1,4 @@
+
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import LoginForm from "@/features/auth/components/LoginForm";
 import loginIllustration from "@/assets/login/login.svg";
@@ -35,7 +36,9 @@ function LoginPage() {
 
       {/* ─── Right Panel: Login Form ──────────────────────────── */}
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-3/5">
-        <div className="w-full max-w-sm space-y-8">
+        {/* Glassmorphism Card */}
+        <div className="w-full max-w-sm space-y-8 rounded-3xl border border-white/80 bg-white/60 p-8 shadow-xl backdrop-blur-xl">
+
           {/* Logo Placeholder */}
           <div className="flex justify-center">
             {/* TODO: Replace with logo */}
