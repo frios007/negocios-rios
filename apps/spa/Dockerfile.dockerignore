@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.turbo
+**/.tanstack
+**/.env
+**/.env.*
+**/coverage
+**/.DS_Store
+.git
+_archive
+postgres_data
+docs
+apps/api
