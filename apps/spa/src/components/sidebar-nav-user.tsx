@@ -21,6 +21,16 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChevronsUpDown, LogOut, KeyRound, UserCircle } from "lucide-react";
 
+function UserAvatar({ initials }: { initials: string }) {
+  return (
+    <Avatar className="size-8 shrink-0 rounded-full ring-1 ring-brass ring-offset-2 ring-offset-sidebar">
+      <AvatarFallback className="rounded-full bg-primary font-serif text-[14px] font-bold text-primary-foreground">
+        {initials}
+      </AvatarFallback>
+    </Avatar>
+  );
+}
+
 export function SidebarNavUser() {
   const { isMobile } = useSidebar();
   const user = useAuthStore((s) => s.user);
@@ -53,38 +63,37 @@ export function SidebarNavUser() {
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                className="gap-2.5 rounded-[10px] hover:bg-secondary data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarFallback className="rounded-lg bg-primary text-primary-foreground text-xs">
-                    {initials}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{fullName}</span>
+                <UserAvatar initials={initials} />
+                <div className="grid flex-1 text-left leading-tight">
+                  <span className="truncate text-[13.5px] font-semibold text-foreground">
+                    {fullName}
+                  </span>
                   <span className="truncate text-xs text-muted-foreground">
                     @{user.username}
                   </span>
                 </div>
-                <ChevronsUpDown className="ml-auto size-4" />
+                <ChevronsUpDown
+                  className="ml-auto size-4 text-muted-foreground"
+                  strokeWidth={1.8}
+                />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
-              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-xl p-1.5"
               side={isMobile ? "top" : "right"}
               align="end"
-              sideOffset={4}
+              sideOffset={8}
             >
               <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                  <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarFallback className="rounded-lg bg-primary text-primary-foreground text-xs">
-                      {initials}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">{fullName}</span>
+                <div className="flex items-center gap-2.5 px-1.5 py-2 text-left">
+                  <UserAvatar initials={initials} />
+                  <div className="grid flex-1 text-left leading-tight">
+                    <span className="truncate font-serif text-[16px] font-bold">
+                      {fullName}
+                    </span>
                     <span className="truncate text-xs text-muted-foreground">
                       @{user.username}
                     </span>
@@ -93,22 +102,31 @@ export function SidebarNavUser() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="gap-2"
+                className="gap-2.5 rounded-md"
                 onClick={() => setProfileOpen(true)}
               >
-                <UserCircle className="size-4" />
+                <UserCircle
+                  className="size-4 text-muted-foreground"
+                  strokeWidth={1.8}
+                />
                 Mi Perfil
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="gap-2"
+                className="gap-2.5 rounded-md"
                 onClick={() => setPasswordOpen(true)}
               >
-                <KeyRound className="size-4" />
+                <KeyRound
+                  className="size-4 text-muted-foreground"
+                  strokeWidth={1.8}
+                />
                 Cambiar Contraseña
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="gap-2" onClick={handleLogout}>
-                <LogOut className="size-4" />
+              <DropdownMenuItem
+                className="gap-2.5 rounded-md text-destructive focus:bg-destructive/10 focus:text-destructive"
+                onClick={handleLogout}
+              >
+                <LogOut className="size-4" strokeWidth={1.8} />
                 Cerrar Sesión
               </DropdownMenuItem>
             </DropdownMenuContent>
